@@ -1,14 +1,22 @@
 import { useState } from "react";
 import "./App.css";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+
+import Login from "./pages/Users/login.jsx";
+
+
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <div className="bg-blue-500 text-white p-4">
-        <h1 className="text-2xl">Hello, Tailwind!</h1>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
