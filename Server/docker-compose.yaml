@@ -1,0 +1,23 @@
+#version: '3.8'
+services:
+  marydb:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: 123
+      MARIADB_DATABASE: InformeDB
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    build: .
+    depends_on:
+      - marydb
+    links:
+      - marydb
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:
