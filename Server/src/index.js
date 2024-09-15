@@ -1,11 +1,22 @@
 import express from "express";
 import cors from "cors";
 import { createPool } from "mysql2/promise";
+import indexRouter from "./routes/routes.js"; 
 
 const app = express();
 const port = 3000;
 
-// Crear el pool de conexiones
+
+app.use(cors());
+
+
+app.use(express.json({ limit: "25mb" }));
+app.use(express.urlencoded({ limit: "25mb", extended: true }));
+
+
+app.use("/", indexRouter);
+
+
 const pool = createPool({
   host: "marydb", // Nombre del servicio en docker-compose.yml
   user: "root",
@@ -14,16 +25,15 @@ const pool = createPool({
   port: 3306, // Puerto interno del contenedor de MariaDB
 });
 
-// Función para intentar conectar a la base de datos
+
 async function connectWithRetry() {
-  let retries = 0; // Contador de intentos, ahora no hay límite
+  let retries = 0; 
   while (true) {
-    // Bucle infinito hasta que se conecte correctamente
     try {
-      // Intentar realizar una consulta simple para verificar la conexión
+      
       await pool.query("SELECT 1");
       console.log("Conexión a la base de datos exitosa");
-      return; // Salir de la función una vez que la conexión sea exitosa
+      return; 
     } catch (err) {
       retries += 1;
       console.error("Error al conectar a la base de datos:", err.message);
@@ -33,16 +43,9 @@ async function connectWithRetry() {
   }
 }
 
-// Llamar a la función de conexión
+
 connectWithRetry();
 
-app.use(cors());
-app.use(express.json({ limit: "25mb" }));
-app.use(express.urlencoded({ limit: "25mb", extended: true }));
-
-app.listen(port, () => {
-  console.log(`Servidor ejecutándose en el puerto ${port}`);
-});
 
 app.get("/", (req, res) => {
   res.send("Hola");
@@ -56,3 +59,11 @@ app.get("/ping", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+app.listen(port, () => {
+  console.log(`Servidor ejecutándose en el puerto ${port}`);
+});
+
+
+export { pool };
