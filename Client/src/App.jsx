@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Users/login.jsx";
 import Registro from "./pages/Users/registro.jsx";
 import Olvido from "./pages/Users/olvido.jsx";
+import Cursos from "./pages/Admin/cursos.jsx";
+import Home from "./pages/Users/home.jsx";
 
 function App() {
   return (
@@ -15,6 +17,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/Registro" element={<Registro />} />
           <Route path="/OlvidoContrasenia" element={<Olvido />} />
+          <Route path="/Home" element={<Home />} />
+
+          <Route path="/Admin/Cursos" element={<Cursos />} />
         </Routes>
       </BrowserRouter>
     </>

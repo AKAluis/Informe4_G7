@@ -4,12 +4,44 @@ import Header from "../Components/Header";
 import axios from "axios";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [registroAcademico, setRegistroAcademico] = useState("");
+  const [contrasenia, setContrasenia] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+
+    if (registroAcademico === "admin" && contrasenia === "a123") {
+      
+      alert("Inicio de sesión como administrador exitoso");
+      window.location.href = "/admin-dashboard"; 
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:3000/lUser", {
+        Registro_academico: registroAcademico,
+        Contrasenia: contrasenia,
+      });
+
+      console.log(response.data); 
+      console.log(response.data.user); 
+
+      if (response.data.user) {
+        localStorage.setItem("usuario", JSON.stringify(response.data.user));
+      } else {
+        console.error("No se encontró el usuario en la respuesta");
+      }
+
+      window.location.href = "/Home";
+    } catch (error) {
+      console.error(
+        "Error al iniciar sesión:",
+        error.response ? error.response.data : error.message
+      );
+      alert(
+        error.response ? error.response.data.error : "Error al iniciar sesión"
+      );
+    }
   };
 
   return (
@@ -20,32 +52,32 @@ function Login() {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
+              htmlFor="registroAcademico"
             >
               Registro Académico
             </label>
             <input
               type="text"
-              id="CUI"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="registroAcademico"
+              value={registroAcademico}
+              onChange={(e) => setRegistroAcademico(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Introduce tu Registro Académico/CUI"
+              placeholder="Introduce tu Registro Académico"
               required
             />
           </div>
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
+              htmlFor="contrasenia"
             >
               Contraseña
             </label>
             <input
               type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id="contrasenia"
+              value={contrasenia}
+              onChange={(e) => setContrasenia(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Introduce tu contraseña"
               required
