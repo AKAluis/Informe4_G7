@@ -1,4 +1,4 @@
-#version: '3.8'
+version: '3.8'
 services:
   marydb:
     image: mariadb
@@ -10,7 +10,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
-  app:
+  server:
     build: .
     depends_on:
       - marydb
@@ -18,8 +18,20 @@ services:
       - marydb
     ports:
       - "3000:3000"
+ 
+
+  client:
+    build:
+      context: ../Client
+    depends_on:
+      - server
+    ports:
+      - "5173:5173"
+    volumes:
+      - /home/kira/Dev/Informe_4/Client:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
 
 volumes:
   db_data:
-
-  #F
