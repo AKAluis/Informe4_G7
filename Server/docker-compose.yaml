@@ -27,9 +27,6 @@ services:
       - server
     ports:
       - "5173:5173"
-    volumes:
-      - /home/kira/Dev/Informe_4/Client:/app
-      - /app/node_modules
     environment:
       - NODE_ENV=development
 
