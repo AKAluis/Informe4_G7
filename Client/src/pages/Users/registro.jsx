@@ -20,21 +20,20 @@ function Registro() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Imprime los datos para verificar
+     
       console.log("Datos enviados:", formData);
 
-      // Enviar solicitud al backend
       const response = await axios.post(
         "http://localhost:3000/rUser",
         formData,
         { headers: { 'Content-Type': 'application/json' } }
       );
 
-      // Imprime la respuesta del servidor
+     
       console.log("Respuesta del servidor:", response.data);
       alert("Usuario registrado con éxito");
     } catch (error) {
-      // Imprime detalles del error
+    
       console.error(
         "Error al registrar el usuario:",
         error.response ? error.response.data : error.message

@@ -8,7 +8,7 @@ const VentanaPubli = () => {
   const [category, setCategory] = useState("");
   const [tutor, setTutor] = useState("");
   const [auxiliar, setAuxiliar] = useState("");
-  const [Autor, setAuthor] = useState(""); // Nuevo estado para el autor
+  const [Autor, setAuthor] = useState(""); 
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [courses, setCourses] = useState([]);
   const [usuarioId, setUsuarioId] = useState("");
@@ -39,7 +39,7 @@ const VentanaPubli = () => {
       category,
       tutor,
       auxiliar,
-      Autor, // Incluir el autor en los datos enviados
+      Autor, 
       isAnonymous,
       usuarioId,
     };
@@ -59,7 +59,7 @@ const VentanaPubli = () => {
       setCategory("");
       setTutor("");
       setAuxiliar("");
-      setAuthor(""); // Limpiar el campo del autor
+      setAuthor(""); 
       setIsAnonymous(false);
       setUsuarioId("");
     } catch (error) {

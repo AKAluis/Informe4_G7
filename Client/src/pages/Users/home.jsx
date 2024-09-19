@@ -5,8 +5,8 @@ import Navbar from "../Components/Navbar";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const [comments, setComments] = useState({}); // Para manejar comentarios específicos para cada publicación
-  const [commentText, setCommentText] = useState({}); // Manejar texto de comentarios para cada publicación
+  const [comments, setComments] = useState({}); 
+  const [commentText, setCommentText] = useState({}); 
   const [user, setUser] = useState(null);
   const [filters, setFilters] = useState({
     curso: "",
@@ -20,9 +20,9 @@ const Home = () => {
   useEffect(() => {
     const storedData = sessionStorage.getItem("userData");
     if (storedData) {
-      setUser(JSON.parse(storedData)); // Cargar datos de usuario desde sessionStorage
+      setUser(JSON.parse(storedData)); 
     } else {
-      navigate("/login"); // Redirigir si no hay datos
+      navigate("/login");
     }
   }, [navigate]);
 

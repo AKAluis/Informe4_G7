@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal"; // Asegúrate de que react-modal esté instalado e importado
+import Modal from "react-modal"; 
 import Navbar from "../Components/Navbar";
 
 const VerUsers = () => {
@@ -9,7 +9,7 @@ const VerUsers = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch users from the API
+
   useEffect(() => {
     fetch("http://localhost:3000/vUsers")
       .then((response) => {
@@ -19,8 +19,8 @@ const VerUsers = () => {
         return response.json();
       })
       .then((data) => {
-        setUsers(data); // Guardar los usuarios en el estado
-        setLoading(false); // Desactivar la pantalla de carga
+        setUsers(data); 
+        setLoading(false);
       })
       .catch((error) => {
         setError(error.message);
@@ -28,21 +28,21 @@ const VerUsers = () => {
       });
   }, []);
 
-  // Mostrar un mensaje mientras los datos están cargando
+  
   if (loading) {
     return <div className="text-center mt-10">Cargando usuarios...</div>;
   }
 
-  // Mostrar un mensaje de error si falla la solicitud
+  
   if (error) {
     return <div className="text-center text-red-500 mt-10">Error: {error}</div>;
   }
 
-  // Función para abrir el modal y ver los detalles del usuario
+  
   const handleViewMore = (user) => {
     setSelectedUser({
       ...user,
-      // Verificamos si `Cursos_aprobados` es una cadena y la convertimos en un array
+    
       Cursos_aprobados: Array.isArray(user.Cursos_aprobados)
         ? user.Cursos_aprobados
         : user.Cursos_aprobados.split(","),
@@ -50,7 +50,7 @@ const VerUsers = () => {
     setIsModalOpen(true);
   };
 
-  // Función para cerrar el modal
+  
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedUser(null);
@@ -70,7 +70,7 @@ const VerUsers = () => {
               <div className="flex items-center p-4">
                 <img
                   className="w-16 h-16 rounded-full object-cover"
-                  src={`https://i.pravatar.cc/150?img=${user.id}`} // Generar avatar de usuario
+                  src={`https://i.pravatar.cc/150?img=${user.id}`} 
                   alt={user.Nombres}
                 />
                 <div className="ml-4">
@@ -97,7 +97,7 @@ const VerUsers = () => {
             onRequestClose={closeModal}
             contentLabel="Detalles del usuario"
             className="bg-white p-4 max-w-lg mx-auto mt-20 rounded shadow-lg"
-            ariaHideApp={false} // Esta línea es opcional si usas React Modal fuera del root app
+            ariaHideApp={false} 
           >
             <h2 className="text-2xl font-bold mb-4">
               {selectedUser.Nombres} {selectedUser.Apellidos}

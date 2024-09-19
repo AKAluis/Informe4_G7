@@ -15,7 +15,7 @@ const VerProfile = () => {
     return <div>Cargando...</div>;
   }
 
-  // Convertir los cursos de cadena a un array
+ 
   const cursosAprobadosArray = user.Cursos ? user.Cursos.split(",") : [];
 
   return (

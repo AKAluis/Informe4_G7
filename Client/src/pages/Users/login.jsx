@@ -16,7 +16,7 @@ function Login() {
         Contrasenia: contrasenia,
       });
 
-      const userData = response.data.user; // Asegúrate de que el nombre coincide con lo enviado por el backend
+      const userData = response.data.user;
 
       if (userData) {
         sessionStorage.setItem("userData", JSON.stringify(userData));
