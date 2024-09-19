@@ -10,29 +10,21 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (registroAcademico === "admin" && contrasenia === "a123") {
-      
-      alert("Inicio de sesión como administrador exitoso");
-      window.location.href = "/admin-dashboard"; 
-      return;
-    }
-
     try {
       const response = await axios.post("http://localhost:3000/lUser", {
         Registro_academico: registroAcademico,
         Contrasenia: contrasenia,
       });
 
-      console.log(response.data); 
-      console.log(response.data.user); 
+      const userData = response.data.user; // Asegúrate de que el nombre coincide con lo enviado por el backend
 
-      if (response.data.user) {
-        localStorage.setItem("usuario", JSON.stringify(response.data.user));
+      if (userData) {
+        sessionStorage.setItem("userData", JSON.stringify(userData));
+        window.location.href = "/Home";
       } else {
         console.error("No se encontró el usuario en la respuesta");
+        alert("Datos incorrectos");
       }
-
-      window.location.href = "/Home";
     } catch (error) {
       console.error(
         "Error al iniciar sesión:",
